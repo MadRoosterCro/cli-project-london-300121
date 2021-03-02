@@ -1,22 +1,23 @@
 {
-  "books": [
+  "bicycles": [
     {
       "reviews": [
         { "content": "i liked it", "rating": 4 },
         { "rating": "3", "content": "great" },
         { "rating": "1", "content": "hated it" },
-        { "rating": "10", "content": "srofgu" }
+        { "rating": "10", "content": "srofgu" },
+        { "rating": "1", "content": "It was ok" }
       ],
       "id": 1,
-      "title": "Good Book about Javascript"
+      "title": "Basso Venta"
     },
     {
-      "title": "Book about Ruby",
+      "title": "Specialized",
       "reviews": [{ "rating": "3", "content": "hello" }],
       "id": 2
     },
-    { "title": "Book about Ruby", "reviews": [], "id": 4 },
-    { "title": "Book about Ruby", "reviews": [], "id": 5 },
-    { "title": "Book about Ruby", "reviews": [], "id": 6 }
+    { "title": "Bianchi", "reviews": [], "id": 4 },
+    { "title": "Giant", "reviews": [], "id": 5 },
+    { "title": "Pinarello", "reviews": [], "id": 6 }
   ]
 }
