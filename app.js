@@ -1,61 +1,61 @@
 const API = require("./lib/API");
 const readlineSync = require("readline-sync");
 
-function calculateAverageRating(book) {
+function calculateAverageRating(bike) {
   let total = 0;
-  for (const review of book.reviews) {
+  for (const review of bike.reviews) {
     total += parseInt(review.rating);
   }
-  return total / book.reviews.length;
+  return total / bike.reviews.length;
 }
 
-function displayBooksSummary(books) {
-  for (const book of books) {
-    // if ths book has some reviews
-    if (book.reviews.length > 0) {
+function displayBicyclesSummary(bicycles) {
+  for (const bike of bicycles) {
+    // if ths bike has some reviews
+    if (bike.reviews.length > 0) {
       console.log(
-        `--- ${book.id}: ${book.title}, rating: ${calculateAverageRating(book)}`
+        `--- ${bike.id}: ${bike.manufacturer}, rating: ${calculateAverageRating(bike)}`
       );
     } else {
-      console.log(`--- ${book.id}: ${book.title}, no reviews yet!`);
+      console.log(`--- ${bike.id}: ${bike.manufacturer}, no reviews yet!`);
     }
   }
 }
 
-function displayBookDetails(book) {
-  console.log(`-- ${book.title} --`);
-  for (const review of book.reviews) {
+function displayBikeDetails(bike) {
+  console.log(`-- ${bike.manufacturer} --`);
+  for (const review of bike.reviews) {
     console.log(`${review.content} - Rating: ${review.rating}`);
   }
 }
 
-function chooseABook(books) {
-  // display each ID and title
-  for (const book of books) {
-    console.log(`--- ${book.id}: ${book.title}`);
+function chooseABike(bicycles) {
+  // display each ID and manufacturer
+  for (const bike of bicycles) {
+    console.log(`--- ${bike.id}: ${bike.manufacturer}`);
   }
 
   // user inputs an ID number
-  const bookChoice = readlineSync.question(
-    "Which number book would you like to review? "
+  const bikeChoice = readlineSync.question(
+    "Which number bike would you like to review? "
   );
-  const book = API.read("books", bookChoice);
+  const bike = API.read("bicycles", bikeChoice);
 
-  // if the API can't find that book
-  // run chooseABook again
-  if (book !== undefined) {
-    return book;
+  // if the API can't find that bike
+  // run chooseABike again
+  if (bike !== undefined) {
+    return bike;
   } else {
-    console.log("Ooops we can't find that book!");
-    return chooseABook(books);
+    console.log("Ooops we can't find that bike!");
+    return chooseABike(bicycles);
   }
 }
 
 function mainMenu() {
   console.log("----------------");
-  console.log("---- AMAZON ----");
+  console.log("----Best bike review app----");
   console.log("----------------");
-  console.log("1. View our books");
+  console.log("1. View cool bikes");
   console.log("2. Leave a review");
   console.log("----------------");
 
@@ -63,45 +63,45 @@ function mainMenu() {
 
   if (choice === "1") {
     console.log("-----------------");
-    console.log("- ALL OUR BOOKS -");
+    console.log("- ALL OUR BICYCLES -");
     console.log("-----------------");
 
-    // get all books
-    const books = API.read("books");
-    displayBooksSummary(books);
+    // get all bicycles
+    const bicycles = API.read("bicycles");
+    displayBicyclesSummary(bicycles);
 
     // return to main menu
     mainMenu();
   } else if (choice === "2") {
     console.log("-----------------");
-    console.log("- CHOOSE A BOOK -");
+    console.log("- CHOOSE A BIKE -");
     console.log("-----------------");
 
-    const books = API.read("books");
-    const book = chooseABook(books);
-    displayBookDetails(book);
+    const bicycles = API.read("bicycles");
+    const bike = chooseABike(bicycles);
+    displayBikeDetails(bike);
 
     // Input review details
     const rating = readlineSync.question("What is your rating? ");
     const content = readlineSync.question("Please write your review ");
 
-    // add the new review to the book reviews
-    book.reviews.push({
+    // add the new review to the bike reviews
+    bike.reviews.push({
       rating: rating,
       content: content
     });
 
-    // update the book in the API
-    API.update("books", book);
+    // update the bike in the API
+    API.update("bicycles", bike);
 
     console.log("----------------------------");
-    console.log("Thanks for leaving a review!");
+    console.log("Thank you for reviewing a bike!");
     console.log("----------------------------");
 
     // return to main manu
     mainMenu();
   } else {
-    console.log("Sorry we didn't recognise that choice!");
+    console.log("Sorry, can you choose something else?");
     mainMenu();
   }
 }
