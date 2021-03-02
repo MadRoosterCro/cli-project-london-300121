@@ -5,6 +5,9 @@
     {"title": "Felt", "reviews": [],"id": 3},
     { "title": "Bianchi", "reviews": [], "id": 4 },
     { "title": "Giant", "reviews": [], "id": 5 },
-    { "title": "Pinarello", "reviews": [], "id": 6 }
+    { "title": "Pinarello", "reviews": [], "id": 6 },
+    { "title": "Wilier", "reviews": [], "id": 7 },
+    { "title": "Cannondale", "reviews": [], "id": 8 },
+    { "title": "Trek", "reviews": [], "id": 9 }
   ]
 }
