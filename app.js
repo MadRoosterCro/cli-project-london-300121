@@ -98,6 +98,10 @@ function mainMenu() {
     console.log("Thank you for reviewing a bike!");
     console.log("----------------------------");
 
+    // add a new bike to the selection
+
+    // remove/delete/destroy a bike from the selection
+
     // return to main manu
     mainMenu();
   } else {
