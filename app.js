@@ -1,5 +1,6 @@
 const API = require("./lib/API");
 const readlineSync = require("readline-sync");
+const newBike = { manufacturer: "", reviews: [], id: "" };
 
 function calculateAverageRating(bike) {
   let total = 0;
@@ -14,7 +15,9 @@ function displayBicyclesSummary(bicycles) {
     // if ths bike has some reviews
     if (bike.reviews.length > 0) {
       console.log(
-        `--- ${bike.id}: ${bike.manufacturer}, rating: ${calculateAverageRating(bike)}`
+        `--- ${bike.id}: ${bike.manufacturer}, rating: ${calculateAverageRating(
+          bike
+        )}`
       );
     } else {
       console.log(`--- ${bike.id}: ${bike.manufacturer}, no reviews yet!`);
@@ -57,7 +60,8 @@ function mainMenu() {
   console.log("----------------");
   console.log("1. View cool bikes");
   console.log("2. Leave a review");
-  console.log("----------------");
+  console.log("3. Add a new bike");
+  console.log("4. Remove a bike");
 
   const choice = readlineSync.question("Please choose an option ");
 
@@ -88,7 +92,7 @@ function mainMenu() {
     // add the new review to the bike reviews
     bike.reviews.push({
       rating: rating,
-      content: content
+      content: content,
     });
 
     // update the bike in the API
@@ -98,12 +102,59 @@ function mainMenu() {
     console.log("Thank you for reviewing a bike!");
     console.log("----------------------------");
 
-    // add a new bike to the selection
-
-    // remove/delete/destroy a bike from the selection
-
     // return to main manu
     mainMenu();
+
+    /// add a bike
+  } else if (choice === "3") {
+    function addNewBike(bicycles) {
+      console.log("-----------------");
+      console.log("- ENTER NEW BIKE -");
+      console.log("-----------------");
+
+      const newManufacturer = readlineSync.question(
+        `What is the name of the bike manufacturer?`
+      );
+      newBike.manufacturer = newManufacturer;
+
+      API.create("bicycles", newBike);
+
+      console.log("----------------------------");
+      console.log("Thank you for adding a bike!");
+      console.log("----------------------------");
+
+      mainMenu();
+    }
+
+    addNewBike();
+
+    /// remove a bike
+  } else if (choice === "4") {
+    function removeABike() {
+    console.log("-----------------");
+    console.log("- DELETE A BIKE -");
+    console.log("-----------------");
+
+    /// display all bikes again for user to pick one for destruction
+    const bikes = API.read("bicycles");
+    displayBicyclesSummary(bikes);
+
+    const selectedBike = readlineSync.keyInSelect(bikeNames, "Which bike would you like to remove?");
+   
+
+    const bicycles = API.read("bicycles");
+    displayBicyclesSummary(bicycles);
+
+    API.destroy("bicycles", selectedBike);
+
+    console.log("----------------------------");
+    console.log("Thank you for removing a bike!");
+    console.log("----------------------------");
+      
+    mainMenu();
+    }
+    removeABike();
+
   } else {
     console.log("Sorry, can you choose something else?");
     mainMenu();
