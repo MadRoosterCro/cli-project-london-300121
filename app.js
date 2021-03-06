@@ -131,30 +131,25 @@ function mainMenu() {
     /// remove a bike
   } else if (choice === "4") {
     function removeABike() {
-    console.log("-----------------");
-    console.log("- DELETE A BIKE -");
-    console.log("-----------------");
-
-    /// display all bikes again for user to pick one for destruction
-    const bikes = API.read("bicycles");
-    displayBicyclesSummary(bikes);
-
-    const selectedBike = readlineSync.keyInSelect(bikeNames, "Which bike would you like to remove?");
-   
-
-    const bicycles = API.read("bicycles");
-    displayBicyclesSummary(bicycles);
-
-    API.destroy("bicycles", selectedBike);
-
-    console.log("----------------------------");
-    console.log("Thank you for removing a bike!");
-    console.log("----------------------------");
+      console.log("-----------------");
+      console.log("- DELETE A BIKE -");
+      console.log("-----------------");
+  
+      /// display all bikes again for user to pick one for destruction
+      const bikes = API.read("bicycles");
+      displayBicyclesSummary(bikes);
+  
+      const removeBikeID = readlineSync.question("Which bike do you want to remove? ");
       
-    mainMenu();
-    }
-    removeABike();
-
+      API.destroy("bicycles", Number(removeBikeID));
+  
+      console.log("----------------------------");
+      console.log("Thank you for removing a bike!");
+      console.log("----------------------------");
+        
+      mainMenu();
+      }
+      removeABike();
   } else {
     console.log("Sorry, can you choose something else?");
     mainMenu();
